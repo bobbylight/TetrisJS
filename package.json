@@ -1,0 +1,27 @@
+{
+  "name": "tetrisjs",
+  "description": "Tetris written in TypeScript",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bobbylight/TetrisJS.git"
+  },
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf dist coverage",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tsc": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "rimraf": "6.0.1",
+    "typescript": "5.6.3",
+    "vite": "5.4.10"
+  },
+  "dependencies": {
+    "gtp": "3.0.1"
+  }
+}
