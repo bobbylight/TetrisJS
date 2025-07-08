@@ -1,4 +1,7 @@
 # TetrisJS
+![Build](https://github.com/bobbylight/TetrisJS/actions/workflows/build.yml/badge.svg)
+![CodeQL](https://github.com/bobbylight/TetrisJS/actions/workflows/codeql-analysis.yml/badge.svg)
+
 A Tetris clone in TypeScript (not JS! :) ). This is a straight port
 of a Tetris game I wrote in Java AWT as a kid. I ported it to TS and
 hope to make it more robust one day.
