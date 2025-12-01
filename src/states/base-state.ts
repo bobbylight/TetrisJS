@@ -1,11 +1,12 @@
-import TetrisGame from '../tetris-game.ts';
-import { BaseStateArgs, Keys, State } from 'gtp';
-import { Constants } from '../constants.ts';
+import { Keys, State } from 'gtp';
+import { TetrisGame } from '../tetris-game.ts';
+import * as Constants from '../constants.ts';
 
-export default class BaseState extends State<TetrisGame> {
+export class BaseState extends State<TetrisGame> {
 
-    constructor(args?: TetrisGame | BaseStateArgs<TetrisGame>) {
-        super(args);
+    constructor(game: TetrisGame) {
+        super(game);
+        this.game = game;
     }
 
     protected clearScreen(ctx: CanvasRenderingContext2D) {

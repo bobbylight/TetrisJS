@@ -1,6 +1,6 @@
-import { BlockRenderStrategy } from './block-render-strategy.ts';
-import TetrisGame from './tetris-game.ts';
 import { Image } from 'gtp';
+import { BlockRenderStrategy } from './block-render-strategy.ts';
+import { TetrisGame } from './tetris-game.ts';
 
 export const IMAGE_COLORS = [
     'red',
@@ -12,11 +12,11 @@ export const IMAGE_COLORS = [
     'violet',
 ];
 
-export default class ImageBlockRenderStrategy implements BlockRenderStrategy {
+export class ImageBlockRenderStrategy implements BlockRenderStrategy {
     private readonly images: Image[];
 
     constructor(game: TetrisGame) {
-        this.images = IMAGE_COLORS.map(color => game.assets.get(color));
+        this.images = IMAGE_COLORS.map((color) => game.assets.get(color));
     }
 
     paint(ctx: CanvasRenderingContext2D, x: number, y: number, color: number) {

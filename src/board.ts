@@ -1,13 +1,14 @@
-import { Constants } from './constants.ts';
-import Piece from './piece.ts';
-import TetrisGame from './tetris-game.ts';
-import { Sounds } from './sounds.ts';
+import * as Constants from './constants.ts';
+import { Piece } from './piece.ts';
+import { TetrisGame } from './tetris-game.ts';
+import { SOUNDS } from './Sounds.ts';
+import {create2DArray} from "./utils.ts";
 
 /**
  * The "board" in which Tetris is played.
  */
 export class Board {
-    private data: number[][];
+    private readonly data: number[][];
     private rowsBeingCleared: number[];
     private clearStage: number;
 
@@ -15,12 +16,9 @@ export class Board {
      * Constructor.
      * @param tetris The game application.
      */
-    constructor(private tetris: TetrisGame) {
-        this.data = Array.from(
-            { length: Constants.HEIGHT_IN_BLOCKS },
-            () => new Array(Constants.WIDTH_IN_BLOCKS).fill(0)
-        );
-        this.rowsBeingCleared = new Array(4).fill(-1);
+    constructor(private readonly tetris: TetrisGame) {
+        this.data = create2DArray(Constants.HEIGHT_IN_BLOCKS, Constants.WIDTH_IN_BLOCKS, 0);
+        this.rowsBeingCleared = new Array<number>(4).fill(-1);
         this.clearStage = 0;
     }
 
@@ -53,7 +51,7 @@ export class Board {
                 for (let j = 0; j < 4; j++) {
                     this.data[piece.getBoardRow(j)][piece.getBoardColumn(j)] = piece.getType();
                 }
-                this.tetris.audio.playSound(Sounds.PIECE_LANDING);
+                this.tetris.audio.playSound(SOUNDS.PIECE_LANDING);
                 return false;
             }
         }
@@ -88,10 +86,10 @@ export class Board {
         while (i < 4 && this.rowsBeingCleared[i] > -1) {
             const row = this.rowsBeingCleared[i] + i;
             this.data.splice(row, 1);
-            this.data.unshift(new Array(this.getBoardColumnCount()).fill(0));
+            this.data.unshift(new Array<number>(this.getBoardColumnCount()).fill(0));
             i++;
         }
-        this.tetris.linesCleared(i);
+        this.tetris.setLinesCleared(i);
     }
 
     startClearing(): boolean {
@@ -111,7 +109,8 @@ export class Board {
 
             if (blockCount === 0) {
                 break; // Completely empty row - we can quit now.
-            } else if (blockCount === this.getBoardColumnCount()) {
+            }
+            else if (blockCount === this.getBoardColumnCount()) {
                 this.rowsBeingCleared[rbcIndex++] = row;
                 if (rbcIndex === 4) {
                     // Max of 4 rows can be cleared at a time, so we can quit early.
@@ -122,7 +121,7 @@ export class Board {
 
         const rowsCleared = rbcIndex > 0;
         if (rowsCleared) {
-            this.tetris.audio.playSound(Sounds.LINES_CLEARING);
+            this.tetris.audio.playSound(SOUNDS.LINES_CLEARING);
         }
         return rowsCleared;
     }
@@ -141,7 +140,8 @@ export class Board {
             if (colCount % 2 === 0) { // Even number of columns.
                 this.data[row][mid + this.clearStage] = 0;
                 this.data[row][mid - this.clearStage - 1] = 0;
-            } else { // Odd number of columns.
+            }
+            else { // Odd number of columns.
                 this.data[row][mid - this.clearStage] = 0;
                 this.data[row][mid + this.clearStage] = 0;
             }

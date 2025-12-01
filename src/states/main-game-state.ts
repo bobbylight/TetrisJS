@@ -1,20 +1,20 @@
-import BaseState from './base-state.ts';
-import TetrisGame from '../tetris-game.ts';
-import { Constants } from '../constants.ts';
-import { Sounds } from '../sounds.ts';
 import { InputManager, Keys } from 'gtp';
-import GameOverState from './game-over-state.ts';
+import { TetrisGame } from '../tetris-game.ts';
+import * as Constants from '../constants.ts';
+import { SOUNDS } from '../Sounds.ts';
+import { BaseState } from './base-state.ts';
+import { GameOverState } from './game-over-state.ts';
 
-export default class MainGameState extends BaseState {
+export class MainGameState extends BaseState {
 
     static readonly SUBSTATE_PIECE_FALLING = 0;
     static readonly SUBSTATE_LINES_CLEARING = 1;
 
     private dropAreaImage: HTMLImageElement | null = null;
     protected font: string;
-    private lastFallTime: number = 0;
-    private lastClearTime: number = 0;
-    private nextPieceX: number = 0;
+    private lastFallTime = 0;
+    private lastClearTime = 0;
+    private nextPieceX = 0;
     private substate: number = MainGameState.SUBSTATE_PIECE_FALLING;
 
     constructor(tetris: TetrisGame) {
@@ -71,7 +71,8 @@ export default class MainGameState extends BaseState {
 
         if (this.game.paused) {
             this.paintBigText('Paused', ctx);
-        } else {
+        }
+        else {
             const fallingPiece = this.game.getFallingPiece();
             if (fallingPiece) {
                 this.game.paintPieceInDropArea(ctx, fallingPiece);
@@ -86,18 +87,20 @@ export default class MainGameState extends BaseState {
             return;
         }
 
+        const currentTime = Date.now();
+        let fallingPiece = this.game.getFallingPiece();
+        const time = this.game.playTime;
+
         switch (this.substate) {
             case MainGameState.SUBSTATE_PIECE_FALLING:
-                let fallingPiece = this.game.getFallingPiece();
                 if (!fallingPiece) {
                     fallingPiece = this.game.createNewFallingPiece();
                     if (this.game.getBoard().getTouchesData(fallingPiece)) {
-                        this.game.audio.playSound(Sounds.GAME_OVER, false);
+                        this.game.audio.playSound(SOUNDS.GAME_OVER, false);
                         this.game.setState(new GameOverState(this.game, this));
                     }
                     this.lastFallTime = this.game.playTime;
                 }
-                const time = this.game.playTime;
                 if (time >= this.lastFallTime + this.game.getFallTimeDelta()) {
                     this.lastFallTime = time;
                     this.game.dropFallingPiece();
@@ -105,7 +108,6 @@ export default class MainGameState extends BaseState {
                 break;
 
             case MainGameState.SUBSTATE_LINES_CLEARING:
-                const currentTime = Date.now();
                 if (currentTime >= this.lastClearTime) {
                     this.lastClearTime = currentTime;
                     if (!this.game.getBoard().updateClearing()) {
@@ -129,7 +131,8 @@ export default class MainGameState extends BaseState {
             if (im.enter(true)) {
                 this.game.paused = false;
             }
-        } else {
+        }
+        else {
             switch (this.substate) {
                 case MainGameState.SUBSTATE_LINES_CLEARING:
                     // Accept no input
@@ -148,26 +151,31 @@ export default class MainGameState extends BaseState {
             if (fallingPiece) {
                 fallingPiece.moveLeft(this.game.getBoard());
             }
-        } else if (im.right(true)) {
+        }
+        else if (im.right(true)) {
             if (fallingPiece) {
                 fallingPiece.moveRight(this.game.getBoard());
             }
-        } else if (im.down(true)) {
+        }
+        else if (im.down(true)) {
             this.game.dropFallingPiece();
-        } else if (im.isKeyDown(Keys.KEY_N, true)) {
+        }
+        else if (im.isKeyDown(Keys.KEY_N, true)) {
             this.game.setShowNextPiece(!this.game.getShowNextPiece());
-        } else if (im.enter(true)) {
+        }
+        else if (im.enter(true)) {
             this.game.paused = true;
         }
 
         if (im.isKeyDown(Keys.KEY_Z, true)) {
             if (fallingPiece) {
-                this.game.audio.playSound(Sounds.PIECE_ROTATING, false);
+                this.game.audio.playSound(SOUNDS.PIECE_ROTATING, false);
                 fallingPiece.rotate(-1, this.game.getBoard());
             }
-        } else if (im.isKeyDown(Keys.KEY_X, true)) {
+        }
+        else if (im.isKeyDown(Keys.KEY_X, true)) {
             if (fallingPiece) {
-                this.game.audio.playSound(Sounds.PIECE_ROTATING, false);
+                this.game.audio.playSound(SOUNDS.PIECE_ROTATING, false);
                 fallingPiece.rotate(1, this.game.getBoard());
             }
         }
@@ -180,9 +188,10 @@ export default class MainGameState extends BaseState {
 
     private paintDropArea(ctx: CanvasRenderingContext2D) {
         const x = Constants.BORDER_X - Constants.EDGE_SIZE;
-        if (this.game.getPaintFancyBoard()) {
-            ctx.drawImage(this.dropAreaImage as HTMLImageElement, x, Constants.BORDER_Y);
-        } else {
+        if (this.game.getPaintFancyBoard() && this.dropAreaImage) {
+            ctx.drawImage(this.dropAreaImage, x, Constants.BORDER_Y);
+        }
+        else {
             ctx.fillStyle = 'blue';
             this.paintDropAreaBorderImpl(ctx, x, Constants.BORDER_Y);
         }
@@ -222,13 +231,11 @@ export default class MainGameState extends BaseState {
 
         if (doPaint) {
             const nextPiece = this.game.getNextPiece();
-            if (nextPiece) {
-                const w = Constants.BLOCK_SIZE * 4;
-                const textAreaW = Constants.SCREEN_WIDTH - Constants.TEXT_AREA_X - Constants.BORDER_X;
-                const x = Constants.TEXT_AREA_X + (textAreaW - w) / 2;
-                y += 20;
-                this.game.paintPiece(ctx, nextPiece, x, y);
-            }
+            const w = Constants.BLOCK_SIZE * 4;
+            const textAreaW = Constants.SCREEN_WIDTH - Constants.TEXT_AREA_X - Constants.BORDER_X;
+            const x = Constants.TEXT_AREA_X + (textAreaW - w) / 2;
+            y += 20;
+            this.game.paintPiece(ctx, nextPiece, x, y);
         }
     }
 
@@ -237,7 +244,7 @@ export default class MainGameState extends BaseState {
         const ascent = fontHeight;
 
         let x = Constants.TEXT_AREA_X + 40;
-        let y = Constants.BORDER_Y + ascent;
+        const y = Constants.BORDER_Y + ascent;
         const yDelta = fontHeight + 5;
 
         ctx.fillStyle = 'white';

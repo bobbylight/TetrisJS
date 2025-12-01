@@ -1,15 +1,14 @@
-import BaseState from './base-state.ts';
-import TetrisGame from '../tetris-game.ts';
-import { BaseStateArgs } from 'gtp';
-import { Sounds } from '../sounds.ts';
-import TitleState from './title-state.ts';
-import ImageBlockRenderStrategy, { IMAGE_COLORS } from '../image-block-render-strategy.ts';
+import { TetrisGame } from '../tetris-game.ts';
+import { SOUNDS } from '../Sounds.ts';
+import { ImageBlockRenderStrategy, IMAGE_COLORS } from '../image-block-render-strategy.ts';
+import { TitleState } from './title-state.ts';
+import { BaseState } from './base-state.ts';
 
-export default class LoadingState extends BaseState {
+export class LoadingState extends BaseState {
     private assetsLoaded: boolean;
 
-    constructor(args?: TetrisGame | BaseStateArgs<TetrisGame>) {
-        super(args);
+    constructor(game: TetrisGame) {
+        super(game);
         this.assetsLoaded = false;
     }
 
@@ -17,7 +16,7 @@ export default class LoadingState extends BaseState {
         super.render(ctx);
     }
 
-    override update(_delta: number) {
+    override update() {
         this.handleDefaultKeys();
 
         if (!this.assetsLoaded) {
@@ -34,24 +33,28 @@ export default class LoadingState extends BaseState {
         game.assets.addImage('loading', 'img/loadingMessage.png');
         game.assets.onLoad(() => {
 
-            game.assets.addSound(Sounds.GAME_OVER, `sounds/${Sounds.GAME_OVER}`);
-            game.assets.addSound(Sounds.LEVEL_UP, `sounds/${Sounds.LEVEL_UP}`);
-            game.assets.addSound(Sounds.LINES_CLEARING, `sounds/${Sounds.LINES_CLEARING}`);
-            game.assets.addSound(Sounds.PAUSED, `sounds/${Sounds.PAUSED}`);
-            game.assets.addSound(Sounds.PIECE_LANDING, `sounds/${Sounds.PIECE_LANDING}`);
-            game.assets.addSound(Sounds.PIECE_ROTATING, `sounds/${Sounds.PIECE_ROTATING}`);
+            void game.assets.addSound(SOUNDS.GAME_OVER, `sounds/${SOUNDS.GAME_OVER}`);
+            void game.assets.addSound(SOUNDS.LEVEL_UP, `sounds/${SOUNDS.LEVEL_UP}`);
+            void game.assets.addSound(SOUNDS.LINES_CLEARING, `sounds/${SOUNDS.LINES_CLEARING}`);
+            void game.assets.addSound(SOUNDS.PAUSED, `sounds/${SOUNDS.PAUSED}`);
+            void game.assets.addSound(SOUNDS.PIECE_LANDING, `sounds/${SOUNDS.PIECE_LANDING}`);
+            void game.assets.addSound(SOUNDS.PIECE_ROTATING, `sounds/${SOUNDS.PIECE_ROTATING}`);
 
-            IMAGE_COLORS.forEach(color => game.assets.addImage(color, `img/${color}.png`));
+            IMAGE_COLORS.forEach((color) => {
+                game.assets.addImage(color, `img/${color}.png`);
+            });
 
-            game.assets.onLoad(async () => {
-                // TODO: Move font loading into gtp
-                const f = new FontFace('SF Arch Rival', 'url("fonts/SF Arch Rival.ttf")');
-                await f.load();
-                document.fonts.add(f);
-                this.game.font = `20px ${f.family}`;
-                this.game.brs = new ImageBlockRenderStrategy(this.game);
+            game.assets.onLoad(() => {
+                void(async() => {
+                    // TODO: Move font loading into gtp
+                    const f = new FontFace('SF Arch Rival', 'url("fonts/SF Arch Rival.ttf")');
+                    await f.load();
+                    document.fonts.add(f);
+                    this.game.font = `20px ${f.family}`;
+                    this.game.brs = new ImageBlockRenderStrategy(this.game);
 
-                this.game.setState(new TitleState(game));
+                    this.game.setState(new TitleState(game));
+                })();
             });
         });
     }

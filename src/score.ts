@@ -1,8 +1,8 @@
-export default class Score {
-    private name: string;
-    private score: string;
-    private level: string;
-    private date: Date;
+export class Score {
+    private readonly name: string;
+    private readonly score: string;
+    private readonly level: string;
+    private readonly date: Date;
 
     constructor(name: string, score: number, level: number, date: Date) {
         this.name = name;
