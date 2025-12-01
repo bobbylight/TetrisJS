@@ -1,7 +1,7 @@
 import { BlockRenderStrategy } from './block-render-strategy.ts';
-import { Constants } from './constants.ts';
+import * as Constants from './constants.ts';
 
-export default class SolidBlockRenderStrategy implements BlockRenderStrategy {
+export class SolidBlockRenderStrategy implements BlockRenderStrategy {
 
     static readonly COLORS = [
         `#ff0000`,

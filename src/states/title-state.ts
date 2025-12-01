@@ -1,23 +1,23 @@
-import BaseState from './base-state.ts';
-import Piece from '../piece.ts';
-import Score from '../score.ts';
-import { Constants } from '../constants.ts';
 import { Keys } from 'gtp';
-import MainGameState from './main-game-state.ts';
-import PieceFactory from '../piece-factory.ts';
-import TetrisGame from '../tetris-game.ts';
+import { Piece } from '../piece.ts';
+import { Score } from '../score.ts';
+import * as Constants from '../constants.ts';
+import * as PieceFactory from '../piece-factory.ts';
+import { TetrisGame } from '../tetris-game.ts';
+import { MainGameState } from './main-game-state.ts';
+import { BaseState } from './base-state.ts';
 
-const FALLING_PIECE_SCALE: number = 1.5;
-const PIECE_ALPHA: number = 0.2;
-const HIGH_SCORES_MARGIN: number = 150;
+const FALLING_PIECE_SCALE = 1.5;
+const PIECE_ALPHA = 0.2;
+const HIGH_SCORES_MARGIN = 150;
 
-export default class TitleState extends BaseState {
+export class TitleState extends BaseState {
 
     private font: string;
-    private fallingPieces: Piece[];
+    private readonly fallingPieces: Piece[];
     private fallOffset: number;
-    private composite: CanvasRenderingContext2D['globalAlpha'];
-    private fallingPiecesTrans: DOMMatrixReadOnly;
+    private readonly composite: CanvasRenderingContext2D['globalAlpha'];
+    private readonly fallingPiecesTrans: DOMMatrixReadOnly;
     private lastFlashTime: number;
     private flashState: boolean;
     private tick: number;
@@ -46,7 +46,7 @@ export default class TitleState extends BaseState {
             PieceFactory.createLeftHookPiece(),
             PieceFactory.createLinePiece(),
             PieceFactory.createRightHookPiece(),
-            PieceFactory.createSquarePiece()
+            PieceFactory.createSquarePiece(),
         ];
         this.fallingPiecesTrans = new DOMMatrix().scale(FALLING_PIECE_SCALE, FALLING_PIECE_SCALE);
 
@@ -69,7 +69,7 @@ export default class TitleState extends BaseState {
         this.clearScreen(ctx);
         this.paintFallingPieces(ctx);
 
-        const width =  Constants.SCREEN_WIDTH;
+        const width = Constants.SCREEN_WIDTH;
         let y = 20;
         this.paintTitle(ctx, y);
 
@@ -105,7 +105,7 @@ export default class TitleState extends BaseState {
         const scores = this.getScores();
         if (scores) {
             ctx.fillStyle = 'white';
-            let count = Math.min(scores.length, 10);
+            const count = Math.min(scores.length, 10);
             for (let i = 0; i < count; i++) {
                 const rhs = width - x;
                 y += 24;
@@ -113,7 +113,8 @@ export default class TitleState extends BaseState {
                 const score = scores[i].getScore();
                 ctx.fillText(score, rhs - fm.width, y);
             }
-        } else if (this.scoresError) {
+        }
+        else if (this.scoresError) {
             ctx.fillText(this.scoresError, x, y);
         }
 

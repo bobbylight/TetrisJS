@@ -1,14 +1,14 @@
-import Score from '../score.ts';
-import TetrisGame from '../tetris-game.ts';
-import TitleState from './title-state.ts';
-import BaseState from './base-state.ts';
-import MainGameState from './main-game-state.ts';
+import { Score } from '../score.ts';
+import { TetrisGame } from '../tetris-game.ts';
+import { TitleState } from './title-state.ts';
+import { BaseState } from './base-state.ts';
+import { MainGameState } from './main-game-state.ts';
 
-export default class GameOverState extends BaseState {
+export class GameOverState extends BaseState {
     scores: Score[];
     enterPressed: boolean;
 
-    constructor(game: TetrisGame, private mainGameState: MainGameState) {
+    constructor(game: TetrisGame, private readonly mainGameState: MainGameState) {
         super(game);
         this.scores = [];
         this.enterPressed = false;

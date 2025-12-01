@@ -1,28 +1,28 @@
 import { Game, GameArgs } from 'gtp';
 import { BlockRenderStrategy } from './block-render-strategy.ts';
 import { Board } from './board.ts';
-import Piece from './piece.ts';
-import PieceFactory from './piece-factory.ts';
-import { Sounds } from './sounds.ts';
-import MainGameState from './states/main-game-state.ts';
-import { Constants } from './constants.ts';
-import LoadingState from './states/loading-state.ts';
-import SolidBlockRenderStrategy from './solid-block-render-strategy.ts';
-import ImageBlockRenderStrategy from './image-block-render-strategy.ts';
+import { Piece } from './piece.ts';
+import * as PieceFactory from './piece-factory.ts';
+import { SOUNDS } from './Sounds.ts';
+import { MainGameState } from './states/main-game-state.ts';
+import * as Constants from './constants.ts';
+import { LoadingState } from './states/loading-state.ts';
+import { SolidBlockRenderStrategy } from './solid-block-render-strategy.ts';
+import { ImageBlockRenderStrategy } from './image-block-render-strategy.ts';
 
 /**
  * The actual game engine.
  */
-export default class TetrisGame extends Game {
+export class TetrisGame extends Game {
 
     brs: BlockRenderStrategy;
-    private bigMessageFont: string;
+    private readonly bigMessageFont: string;
     font: string;
-    private board: Board;
+    private readonly board: Board;
     private fallingPiece: Piece | null;
     private nextPiece: Piece;
     private level: number;
-    private _linesCleared: number;
+    private linesCleared: number;
     private score: number;
     private showNextPiece: boolean;
     private paintFancyBoard: boolean;
@@ -39,7 +39,7 @@ export default class TetrisGame extends Game {
         this.fallingPiece = null;
         this.nextPiece = this.createRandomPiece();
         this.level = 0;
-        this._linesCleared = 0;
+        this.linesCleared = 0;
         this.score = 0;
         this.showNextPiece = true;
         this.paintFancyBoard = true;
@@ -49,14 +49,14 @@ export default class TetrisGame extends Game {
     }
 
     private createRandomPiece(): Piece {
-        const type = this.randomInt(7) + 1;  // Random piece type between 1 and 7
+        const type = this.randomInt(7) + 1; // Random piece type between 1 and 7
         return PieceFactory.createPiece(type);
     }
 
     startNewGame() {
         this.board.clear();
         this.level = 0;
-        this._linesCleared = 0;
+        this.linesCleared = 0;
         this.score = 0;
     }
 
@@ -113,11 +113,11 @@ export default class TetrisGame extends Game {
         // => Decrease by 0.9 seconds in 20 levels
         // => Each level, drop time decreases by (0.045 * level) seconds
         const level = Math.min(this.getLevel(), 22); // Prevent negative times
-        return 1000 - (level*0.045) * 1000;
+        return 1000 - level * 0.045 * 1000;
     }
 
     getLinesCleared(): number {
-        return this._linesCleared;
+        return this.linesCleared;
     }
 
     getNextPiece(): Piece {
@@ -139,18 +139,18 @@ export default class TetrisGame extends Game {
     }
 
     // Update score based on cleared lines
-    linesCleared(count: number) {
-        const LINE_CLEAR_SCORE = [40, 100, 300, 1200];
+    setLinesCleared(count: number) {
+        const LINE_CLEAR_SCORE = [ 40, 100, 300, 1200 ];
         this.score += LINE_CLEAR_SCORE[count - 1] * (this.level + 1);
-        this._linesCleared += count;
-        if (this._linesCleared >= (this.level + 1) * 10) {
+        this.linesCleared += count;
+        if (this.linesCleared >= (this.level + 1) * 10) {
             this.level++;
-            this.audio.playSound(Sounds.LEVEL_UP, false);
+            this.audio.playSound(SOUNDS.LEVEL_UP, false);
         }
     }
 
     paintBlock(ctx: CanvasRenderingContext2D, x: number, y: number, c: number) {
-        this.brs.paint(ctx, x,  y, c);
+        this.brs.paint(ctx, x, y, c);
     }
 
     paintBlockInDropArea(ctx: CanvasRenderingContext2D, col: number, row: number, c: number) {
@@ -193,7 +193,8 @@ export default class TetrisGame extends Game {
     toggleBlockRenderStrategy() {
         if (this.brs instanceof ImageBlockRenderStrategy) {
             this.brs = new SolidBlockRenderStrategy();
-        } else {
+        }
+        else {
             this.brs = new ImageBlockRenderStrategy(this);
         }
     }

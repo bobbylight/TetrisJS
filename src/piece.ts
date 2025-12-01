@@ -1,25 +1,26 @@
-import { Constants } from './constants.ts';
+import * as Constants from './constants.ts';
 import { Board } from './board.ts';
+import {create2DArray} from "./utils.ts";
 
-export default class Piece {
+export class Piece {
 
-    static LEFT_HOOK = 1; // Start at 1
-    static LETTER_S = 2;
-    static LETTER_T = 3;
-    static LETTER_Z = 4;
-    static LINE = 5;
-    static RIGHT_HOOK = 6;
-    static SQUARE = 7;
+    static readonly LEFT_HOOK = 1; // Start at 1
+    static readonly LETTER_S = 2;
+    static readonly LETTER_T = 3;
+    static readonly LETTER_Z = 4;
+    static readonly LINE = 5;
+    static readonly RIGHT_HOOK = 6;
+    static readonly SQUARE = 7;
 
-    private data: number[][];
+    private readonly data: number[][];
     private x: number;
     private y: number;
     private rotateAmt: number;
-    private type: number;
+    private readonly type: number;
 
     constructor(type: number, rotateStateCount: number) {
         this.type = type;
-        this.data = Array.from({ length: rotateStateCount }, () => new Array(4).fill(0));
+        this.data = create2DArray(rotateStateCount, 4, 0);
         this.x = 3;
         this.y = 0;
         this.rotateAmt = 0;
@@ -78,7 +79,7 @@ export default class Piece {
     }
 
     getPieceRow(index: number): number {
-        return (this.data[this.rotateAmt][index] >> 8) & 0xff;
+        return this.data[this.rotateAmt][index] >> 8 & 0xff;
     }
 
     getType(): number {
@@ -155,6 +156,6 @@ export default class Piece {
     }
 
     setData(rotateAmt: number, index: number, x: number, y: number) {
-        this.data[rotateAmt][index] = (y << 8) | x;
+        this.data[rotateAmt][index] = y << 8 | x;
     }
 }
