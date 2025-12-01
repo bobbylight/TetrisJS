@@ -2,7 +2,7 @@
   "name": "tetrisjs",
   "description": "Tetris written in TypeScript",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -17,11 +17,11 @@
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
-    "rimraf": "6.0.1",
-    "typescript": "5.6.3",
-    "vite": "5.4.10"
+    "rimraf": "6.1.2",
+    "typescript": "5.9.3",
+    "vite": "7.2.4"
   },
   "dependencies": {
-    "gtp": "3.0.1"
+    "gtp": "4.1.1"
   }
 }

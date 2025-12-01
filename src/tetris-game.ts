@@ -1,8 +1,7 @@
-import { Game } from 'gtp';
+import { Game, GameArgs } from 'gtp';
 import { BlockRenderStrategy } from './block-render-strategy.ts';
 import { Board } from './board.ts';
 import Piece from './piece.ts';
-import { GameArgs } from 'gtp/lib/gtp/Game';
 import PieceFactory from './piece-factory.ts';
 import { Sounds } from './sounds.ts';
 import MainGameState from './states/main-game-state.ts';
