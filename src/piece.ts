@@ -66,6 +66,10 @@ export class Piece {
         return this.data[this.rotateAmt][index] & 0xff;
     }
 
+    getPieceRow(index: number): number {
+        return this.data[this.rotateAmt][index] >> 8 & 0xff;
+    }
+
     getRightmostBoardColumn(): number {
         return this.x + this.getRightmostPieceColumn();
     }
@@ -78,8 +82,11 @@ export class Piece {
         return column;
     }
 
-    getPieceRow(index: number): number {
-        return this.data[this.rotateAmt][index] >> 8 & 0xff;
+    /**
+     * Primarily used for testing.
+     */
+    getRotateAmount(): number {
+        return this.rotateAmt;
     }
 
     getType(): number {
@@ -157,5 +164,26 @@ export class Piece {
 
     setData(rotateAmt: number, index: number, x: number, y: number) {
         this.data[rotateAmt][index] = y << 8 | x;
+    }
+
+    /**
+     * Primarily used for testing.
+     */
+    setRotateAmount(amt: number) {
+        this.rotateAmt = amt;
+    }
+
+    /**
+     * Primarily used for testing.
+     */
+    setX(x: number) {
+        this.x = x;
+    }
+
+    /**
+     * Primarily used for testing.
+     */
+    setY(y: number) {
+        this.y = y;
     }
 }

@@ -48,7 +48,7 @@ export class MainGameState extends BaseState {
         ctx.globalAlpha = 0.2;
         ctx.fillRect(Constants.EDGE_SIZE, 0, Constants.DROP_AREA_WIDTH, Constants.DROP_AREA_HEIGHT);
 
-        this.dropAreaImage = new Image();
+        this.dropAreaImage = document.createElement('img');
         this.dropAreaImage.src = canvas.toDataURL();
     }
 

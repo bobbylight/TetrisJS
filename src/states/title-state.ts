@@ -1,4 +1,3 @@
-import { Keys } from 'gtp';
 import { Piece } from '../piece.ts';
 import { Score } from '../score.ts';
 import * as Constants from '../constants.ts';
@@ -152,7 +151,7 @@ export class TitleState extends BaseState {
         const im = this.game.inputManager;
         super.handleDefaultKeys();
 
-        if (im.isKeyDown(Keys.KEY_ENTER, true)) {
+        if (im.enter(true)) {
             this.game.setState(new MainGameState(this.game));
         }
     }

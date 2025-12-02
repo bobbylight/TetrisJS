@@ -14,19 +14,24 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "vitest --coverage src/",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "5.6.1",
+    "@vitest/coverage-v8": "4.0.14",
     "@vitest/eslint-plugin": "1.5.1",
+    "canvas": "3.2.0",
     "eslint": "9.39.1",
     "eslint-plugin-import": "2.32.0",
+    "jsdom": "27.2.0",
     "rimraf": "6.1.2",
     "typescript": "5.9.3",
     "typescript-eslint": "8.48.0",
-    "vite": "7.2.4"
+    "vite": "7.2.4",
+    "vitest": "4.0.14"
   },
   "dependencies": {
     "gtp": "4.1.1"

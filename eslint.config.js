@@ -3,7 +3,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
 import importPlugin from 'eslint-plugin-import';
-// import vitest from '@vitest/eslint-plugin';
+import vitest from '@vitest/eslint-plugin';
 
 export default [
     js.configs.recommended,
@@ -30,7 +30,7 @@ export default [
         plugins: {
             '@stylistic': stylistic,
             'import': importPlugin,
-            //'vitest': vitest,
+            'vitest': vitest,
         },
 
         files: [
@@ -89,19 +89,19 @@ export default [
             "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
             semi: "off",
             "space-before-function-paren": ["error", "never"],
-            // // Extra vitest lint rules not in the "recommended" set
-            // "vitest/consistent-test-filename": ["error", { "pattern": ".*\\.spec\\.ts$"}],
-            // "vitest/consistent-test-it": ["error", { "fn": "it", "withinDescribe": "it" }],
-            // "vitest/consistent-vitest-vi": "error",
-            // "vitest/hoisted-apis-on-top": "error",
-            // "vitest/no-alias-methods": "error",
-            // "vitest/no-commented-out-tests": "error",
-            // "vitest/no-duplicate-hooks": "error",
-            // "vitest/prefer-hooks-on-top": "error",
-            // "vitest/prefer-import-in-mock": "error",
-            // "vitest/prefer-mock-promise-shorthand": "error",
-            // "vitest/prefer-spy-on": "error",
-            // "vitest/prefer-strict-boolean-matchers": "error",
+            // Extra vitest lint rules not in the "recommended" set
+            "vitest/consistent-test-filename": ["error", { "pattern": ".*\\.test\\.ts$"}],
+            "vitest/consistent-test-it": ["error", { "fn": "it", "withinDescribe": "it" }],
+            "vitest/consistent-vitest-vi": "error",
+            "vitest/hoisted-apis-on-top": "error",
+            "vitest/no-alias-methods": "error",
+            "vitest/no-commented-out-tests": "error",
+            "vitest/no-duplicate-hooks": "error",
+            "vitest/prefer-hooks-on-top": "error",
+            "vitest/prefer-import-in-mock": "error",
+            "vitest/prefer-mock-promise-shorthand": "error",
+            "vitest/prefer-spy-on": "error",
+            "vitest/prefer-strict-boolean-matchers": "error",
         },
     },
 ];
