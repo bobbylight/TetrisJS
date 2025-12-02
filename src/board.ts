@@ -92,6 +92,13 @@ export class Board {
         this.tetris.setLinesCleared(i);
     }
 
+    /**
+     * Primarily used for testing.
+     */
+    setData(row: number, col: number, value: number) {
+        this.data[row][col] = value;
+    }
+
     startClearing(): boolean {
         this.rowsBeingCleared.fill(-1);
         let rbcIndex = 0;

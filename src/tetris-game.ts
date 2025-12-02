@@ -29,7 +29,7 @@ export class TetrisGame extends Game {
 
     static readonly LINE_CLEAR_SCORE = [ 40, 100, 300, 1200 ];
 
-    constructor(args: GameArgs) {
+    constructor(args?: GameArgs) {
         super(args);
 
         this.brs = new SolidBlockRenderStrategy();
@@ -58,10 +58,6 @@ export class TetrisGame extends Game {
         this.level = 0;
         this.linesCleared = 0;
         this.score = 0;
-    }
-
-    clearBoard() {
-        this.board.clear();
     }
 
     createNewFallingPiece(): Piece {
