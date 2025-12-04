@@ -1,4 +1,4 @@
-import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { ImageBlockRenderStrategy, IMAGE_COLORS } from './image-block-render-strategy';
 import { TetrisGame } from './tetris-game';
 

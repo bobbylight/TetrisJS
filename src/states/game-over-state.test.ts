@@ -1,7 +1,7 @@
 import { afterEach, it, describe, expect, vi, beforeEach, MockInstance } from 'vitest';
-import {TetrisGame} from "../tetris-game.ts";
-import {GameOverState} from "./game-over-state.ts";
-import {MainGameState} from "./main-game-state.ts";
+import { TetrisGame } from "../tetris-game.ts";
+import { GameOverState } from "./game-over-state.ts";
+import { MainGameState } from "./main-game-state.ts";
 
 describe('GameOverState', () => {
     let game: TetrisGame;

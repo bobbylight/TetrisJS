@@ -1,6 +1,6 @@
 // A minimal mock for DOMMatrix to make tests pass in a JSDOM environment.
 // You may need to add mock implementations for any methods your code actually uses.
-import {vi} from "vitest";
+import { vi } from "vitest";
 
 class DOMMatrixMock {
     is2D = true;

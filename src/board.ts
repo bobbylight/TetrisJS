@@ -2,7 +2,7 @@ import * as Constants from './constants.ts';
 import { Piece } from './piece.ts';
 import { TetrisGame } from './tetris-game.ts';
 import { SOUNDS } from './Sounds.ts';
-import {create2DArray} from "./utils.ts";
+import { create2DArray } from "./utils.ts";
 
 /**
  * The "board" in which Tetris is played.

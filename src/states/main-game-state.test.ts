@@ -1,10 +1,10 @@
 import { afterEach, it, describe, expect, vi, beforeEach, MockInstance } from 'vitest';
-import {Keys} from "gtp";
-import {TetrisGame} from "../tetris-game.ts";
-import {createLetterTPiece} from "../piece-factory.ts";
-import {Piece} from "../piece.ts";
-import {SOUNDS} from "../Sounds.ts";
-import {MainGameState} from "./main-game-state.ts";
+import { Keys } from "gtp";
+import { TetrisGame } from "../tetris-game.ts";
+import { createLetterTPiece } from "../piece-factory.ts";
+import { Piece } from "../piece.ts";
+import { SOUNDS } from "../Sounds.ts";
+import { MainGameState } from "./main-game-state.ts";
 
 describe('MainGameState', () => {
     let game: TetrisGame;
