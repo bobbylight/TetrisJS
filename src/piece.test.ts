@@ -2,7 +2,7 @@ import { afterEach, it, describe, expect, vi, beforeEach } from 'vitest';
 import { Piece } from './piece';
 import { Board } from './board';
 import * as Constants from './constants';
-import {TetrisGame} from "./tetris-game.ts";
+import { TetrisGame } from "./tetris-game.ts";
 
 describe('Piece', () => {
     let game: TetrisGame;

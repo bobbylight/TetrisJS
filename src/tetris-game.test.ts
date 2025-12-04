@@ -1,9 +1,9 @@
-import {afterEach, beforeEach, describe, expect, it, MockInstance, vi} from "vitest";
-import {TetrisGame} from "./tetris-game.ts";
-import {Board} from "./board.ts";
-import {Piece} from "./piece.ts";
-import {MainGameState} from "./states/main-game-state.ts";
-import {createLetterTPiece} from "./piece-factory.ts";
+import { afterEach, beforeEach, describe, expect, it, MockInstance, vi } from "vitest";
+import { TetrisGame } from "./tetris-game.ts";
+import { Board } from "./board.ts";
+import { Piece } from "./piece.ts";
+import { MainGameState } from "./states/main-game-state.ts";
+import { createLetterTPiece } from "./piece-factory.ts";
 
 const mockImage = {
     draw: vi.fn(),

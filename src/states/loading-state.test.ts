@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, MockInstance, vi } from 'vitest';
 import { SpriteSheet } from 'gtp';
-import {TetrisGame} from "../tetris-game.ts";
-import {SOUNDS} from "../Sounds.ts";
-import {IMAGE_COLORS} from "../image-block-render-strategy.ts";
-import {LoadingState} from "./loading-state.ts";
-import {TitleState} from "./title-state.ts";
+import { TetrisGame } from "../tetris-game.ts";
+import { SOUNDS } from "../Sounds.ts";
+import { IMAGE_COLORS } from "../image-block-render-strategy.ts";
+import { LoadingState } from "./loading-state.ts";
+import { TitleState } from "./title-state.ts";
 
 const mockImage = {
     draw: vi.fn(),

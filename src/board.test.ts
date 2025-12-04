@@ -1,11 +1,11 @@
 import { afterEach, it, describe, expect, vi, beforeEach, MockInstance } from 'vitest';
-import {AudioSystem} from "gtp";
+import { AudioSystem } from "gtp";
 import { Board } from './board';
 import * as Constants from './constants';
-import {TetrisGame} from "./tetris-game.ts";
-import {createLetterSPiece, createLetterTPiece, createSquarePiece} from "./piece-factory.ts";
-import {Piece} from "./piece.ts";
-import {SOUNDS} from "./Sounds.ts";
+import { TetrisGame } from "./tetris-game.ts";
+import { createLetterSPiece, createLetterTPiece, createSquarePiece } from "./piece-factory.ts";
+import { Piece } from "./piece.ts";
+import { SOUNDS } from "./Sounds.ts";
 
 describe('Board', () => {
     let game: TetrisGame;

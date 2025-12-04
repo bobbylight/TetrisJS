@@ -1,6 +1,6 @@
 import * as Constants from './constants.ts';
 import { Board } from './board.ts';
-import {create2DArray} from "./utils.ts";
+import { create2DArray } from "./utils.ts";
 
 export class Piece {
 
