@@ -8,19 +8,8 @@ import * as Constants from './constants.ts';
 const CANVAS_WIDTH: number = Constants.SCREEN_WIDTH;
 const CANVAS_HEIGHT: number = Constants.SCREEN_HEIGHT;
 
-declare global {
-    interface Window {
-        game?: TetrisGame;
-        init: (parent: string, assetRoot?: string) => void;
-    }
-}
-
-window.init = function(parent: string, assetRoot?: string) {
-    window.game = new TetrisGame({
-        parent: parent, width: CANVAS_WIDTH, height: CANVAS_HEIGHT,
-        assetRoot: assetRoot, targetFps: 60,
-    });
-    window.game.setState(new LoadingState(window.game));
-    window.game.start();
-};
-window.init('app');
+const game = new TetrisGame({
+    parent: 'app', width: CANVAS_WIDTH, height: CANVAS_HEIGHT, targetFps: 60,
+});
+game.setState(new LoadingState(game));
+game.start();
