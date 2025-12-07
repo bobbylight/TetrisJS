@@ -38,7 +38,7 @@ describe('LoadingState', () => {
         it('loads assets and sets assetsLoaded to true', () => {
             const addImageSpy = vi.spyOn(game.assets, 'addImage');
             const onLoadSpy = vi.spyOn(game.assets, 'onLoad');
-            state.enter(game);
+            state.enter();
             expect(onLoadSpy).not.toHaveBeenCalled();
             state.update();
             expect(addImageSpy).toHaveBeenCalledWith('loading', 'img/loadingMessage.png');
@@ -47,7 +47,7 @@ describe('LoadingState', () => {
 
         it('does not reload assets if already loaded', () => {
             const addImageSpy = vi.spyOn(game.assets, 'addImage');
-            state.enter(game);
+            state.enter();
             state.update();
             expect(addImageSpy).toHaveBeenCalledOnce();
             state.update();
@@ -74,7 +74,7 @@ describe('LoadingState', () => {
             });
 
             it('loads all game resources', () => {
-                state.enter(game);
+                state.enter();
                 state.update();
 
                 expect(addSoundSpy).toHaveBeenCalledWith(SOUNDS.GAME_OVER, `sounds/${SOUNDS.GAME_OVER}`);
@@ -89,13 +89,13 @@ describe('LoadingState', () => {
             });
 
             it('does not start a new game directly', () => {
-                state.enter(game);
+                state.enter();
                 state.update();
                 expect(startNewGameSpy).not.toHaveBeenCalled();
             });
 
             it('sets state to TitleState', async() => {
-                state.enter(game);
+                state.enter();
                 state.update();
 
                 // The last onload is async
