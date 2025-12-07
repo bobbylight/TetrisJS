@@ -4,11 +4,6 @@ import * as Constants from '../constants.ts';
 
 export class BaseState extends State<TetrisGame> {
 
-    constructor(game: TetrisGame) {
-        super(game);
-        this.game = game;
-    }
-
     protected clearScreen(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
